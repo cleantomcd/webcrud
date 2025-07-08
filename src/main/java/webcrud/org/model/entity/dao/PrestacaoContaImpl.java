@@ -22,7 +22,7 @@ public class PrestacaoContaImpl implements PrestacaoContaDAO {
 	@Override
 	public void savePrestacaoConta() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class PrestacaoContaImpl implements PrestacaoContaDAO {
 	@Override
 	public void updatePrestacaoConta() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

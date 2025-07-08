@@ -1,6 +1,7 @@
 package webcrud.org.model.entity;
 
 import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,18 +12,18 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PRESTACAO_CONTA")
 public class PrestacaoConta {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private String descricao;	
+
+	private String descricao;
 	private int valor;
 	private Date data;
 	private String categoria;
-	
+
 	public PrestacaoConta() {}
-	
+
 	public PrestacaoConta(Long id, String descricao, int valor, Date data, String categoria) {
 		super();
 		this.id = id;
@@ -35,7 +36,7 @@ public class PrestacaoConta {
 	public Long getId() {
 		return this.id;
 	}
-	
+
 	public String getDescricao() {
 		return descricao;
 	}
