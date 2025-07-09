@@ -1,5 +1,7 @@
 package webcrud.org.model.entity;
 
+import webcrud.org.model.entity.dto.PrestacaoContaDTO;
+
 import java.sql.Date;
 
 import javax.persistence.Entity;
@@ -9,12 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-@Entity
-@Table(name = "PRESTACAO_CONTA")
+//@Entity
+//@Table(name = "PRESTACAO_CONTA")
 public class PrestacaoConta {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String descricao;
@@ -24,19 +26,18 @@ public class PrestacaoConta {
 
 	public PrestacaoConta() {}
 
-	public PrestacaoConta(Long id, String descricao, int valor, Date data, String categoria) {
+	public PrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
 		super();
-		this.id = id;
-		this.descricao = descricao;
-		this.valor = valor;
-		this.data = data;
-		this.categoria = categoria;
+		this.id = prestacaoContaDTO.id();
+		this.descricao = prestacaoContaDTO.descricao();
+		this.valor = prestacaoContaDTO.valor();
+		this.data = prestacaoContaDTO.data();
+		this.categoria = prestacaoContaDTO.categoria();
 	}
 
 	public Long getId() {
 		return this.id;
 	}
-
 	public String getDescricao() {
 		return descricao;
 	}
