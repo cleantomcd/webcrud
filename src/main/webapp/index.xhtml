@@ -1,10 +1,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
 
-<h:head />
+<h:head>
+ <title> Página de teste</title>
+ </h:head>
 <h:body>
-       <h:outputText value="teste" />
-       <h:button value="clique here"></h:button>
+       
+	<h:commandButton value="Meu Botão"
+	                 action="#{prestacaoContaBean.teste}"
+	                 styleClass="estiloBotao"
+	                 disabled="false"  />
+	                 
+	                 <p:menubar>
+    <p:submenu label="Mail">
+        <p:menuitem value="Gmail" url="http://www.google.com" />
+        <p:menuitem value="Hotmail" url="http://www.hotmail.com" />
+        <p:menuitem value="Yahoo Mail" url="http://mail.yahoo.com" />
+    </p:submenu>
+ 
+</p:menubar>
+
 </h:body>
 </html>

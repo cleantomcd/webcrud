@@ -1,8 +1,8 @@
 package webcrud.org.model.entity.dto;
 
-import webcrud.org.model.entity.PrestacaoConta;
-
 import java.sql.Date;
+
+import webcrud.org.model.entity.PrestacaoConta;
 
 public record PrestacaoContaDTO(Long id, String descricao, int valor, Date data, String categoria) {
 

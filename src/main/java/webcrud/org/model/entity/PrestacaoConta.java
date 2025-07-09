@@ -1,14 +1,8 @@
 package webcrud.org.model.entity;
 
-import webcrud.org.model.entity.dto.PrestacaoContaDTO;
-
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 
 
 //@Entity

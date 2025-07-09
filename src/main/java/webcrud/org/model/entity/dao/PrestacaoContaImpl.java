@@ -1,11 +1,11 @@
 package webcrud.org.model.entity.dao;
 
-import webcrud.org.model.entity.PrestacaoConta;
-import webcrud.org.model.entity.dto.PrestacaoContaDTO;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import webcrud.org.model.entity.PrestacaoConta;
+import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 
 public class PrestacaoContaImpl implements PrestacaoContaDAO {
 

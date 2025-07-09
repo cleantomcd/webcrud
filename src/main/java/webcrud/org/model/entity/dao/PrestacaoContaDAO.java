@@ -1,7 +1,6 @@
 package webcrud.org.model.entity.dao;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 
