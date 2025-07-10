@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
 import webcrud.org.model.entity.PrestacaoConta;
 import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 
+@Named
+@ApplicationScoped
 public class PrestacaoContaImpl implements PrestacaoContaDAO {
 
     ArrayList<PrestacaoConta> prestacaoContas = new ArrayList<>();
