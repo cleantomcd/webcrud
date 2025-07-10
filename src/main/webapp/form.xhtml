@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+<meta charset="UTF-8" />
+<title>Formulário de cadastro e edição</title>
+</h:head>
+<h:body>
+    <h:form>
+    <h1>Formulário de cadastro e edição</h1>
+    <div class="card">
+        <div class="grid ui-fluid">
+            <div class="col-12 md:col-4">
+                <div class="ui-inputgroup">
+                    <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
+                    <p:inputText placeholder="Id"/>
+                </div>
+            </div>
+              <div class="col-12 md:col-4">
+                <div class="ui-inputgroup">
+                    <div class="ui-inputgroup-addon"><i class="pi pi-file"></i></div>
+                    <p:inputText placeholder="Descrição"/>
+                </div>
+            </div>
+            <div class="col-12 md:col-4">
+                <div class="ui-inputgroup">
+                    <div class="ui-inputgroup-addon"><i class="pi pi-calendar"></i></div>
+                    <p:inputText placeholder="Data"/>
+                </div>
+            </div>
+            <div class="col-12 md:col-4">
+                <div class="ui-inputgroup">
+                    <div class="ui-inputgroup-addon">$</div>
+                    <p:inputText placeholder="Valor"/>
+                    <div class="ui-inputgroup-addon">.00</div>
+                </div>
+            </div>
+             <div class="col-12 md:col-4">
+                <div class="ui-inputgroup">
+                    <div class="ui-inputgroup-addon"><i class="pi pi-tag"></i></div>
+                    <p:inputText placeholder="Categoria"/>
+                </div>
+            </div>
+              <p:commandButton icon="pi pi-save" value="Salvar">
+            </p:commandButton>
+        </div>
+    </div>
+</h:form>
+</h:body>
+</html>

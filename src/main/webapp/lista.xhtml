@@ -23,7 +23,7 @@
                 </p:commandButton>
                 
                 <p:commandButton id="delete-products-button" value="#{prestacaoContaController.mensagemBotaoDelete}"
-                    icon="pi pi-trash" actionListener="#{prestacaoContaController.deleteSelectedProducts}"
+                    icon="pi pi-trash" actionListener="#{prestacaoContaController.deletePrestacoesSelecionadas}"
                     styleClass="ui-button-danger" disabled="#{prestacaoContaController.possuiPrestacoesSelecionadas()}" update="@this">
                     <p:confirm header="Confirmação" message="Excluir os registros selecionados?"
                         icon="pi pi-exclamation-triangle" />
@@ -32,7 +32,7 @@
             </p:toolbarGroup>
         </p:toolbar>
 
-        <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{prestacaoContaController.prestacoesCadastradas()}"
+        <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{prestacaoContaController.prestacoesCadastradas}"
             reflow="true" styleClass="products-table" selectionMode="multiple" selection="#{prestacaoContaController.prestacoesSelecionadas}"
             rowKey="#{prestacao.id}" paginator="true" rows="10" selectionRowMode="add" paginatorPosition="bottom">
             <f:facet name="header">
@@ -63,7 +63,7 @@
             <p:column headerText="Valor" sortBy="#{prestacaoConta.valor}">
                 <h:outputText value="#{prestacaoConta.valor}" style="font-weight: 700">
                     <f:convertNumber currencySymbol="R$" type="currency" />
-                </h:outputText>
+                </h:outputText>aaa
             </p:column>
             
             <p:column headerText="Categoria" sortBy="#{prestacaoConta.categoria}" filterBy="#{prestacaoConta.categoria}">

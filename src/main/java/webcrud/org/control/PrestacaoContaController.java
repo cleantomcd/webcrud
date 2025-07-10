@@ -37,7 +37,7 @@ public class PrestacaoContaController {
 		return "Excluir";
 	}
 
-	private boolean possuiPrestacoesSelecionadas() {
+	public boolean possuiPrestacoesSelecionadas() {
 		return prestacoesSelecionadas != null && !prestacoesSelecionadas.isEmpty();
 	}
 
@@ -47,6 +47,14 @@ public class PrestacaoContaController {
 
 	public PrestacaoConta getPrestacaoSelecionada() {
 		return this.prestacaoSelecionada;
+	}
+
+	public void deletePrestacoesSelecionadas() {
+		this.prestacoesSelecionadas.clear();
+	}
+
+	public List<PrestacaoConta> getPrestacoesSelecionadas() {
+		return this.prestacoesSelecionadas;
 	}
 
 
