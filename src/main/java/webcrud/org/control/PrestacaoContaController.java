@@ -3,6 +3,8 @@ package webcrud.org.control;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -23,6 +25,14 @@ public class PrestacaoContaController {
 
 	public PrestacaoContaController() {
 
+	}
+
+	public void setPrestacaoSelecionada(PrestacaoConta prestacaoSelecionada) {
+		this.prestacaoSelecionada = prestacaoSelecionada;
+	}
+
+	public void setPrestacoesSelecionadas(List<PrestacaoConta> prestacoesSelecionadas) {
+		this.prestacoesSelecionadas = prestacoesSelecionadas;
 	}
 
 	public void criarPrestacao() {
@@ -57,6 +67,8 @@ public class PrestacaoContaController {
 		return this.prestacoesSelecionadas;
 	}
 
-
-
+	public boolean cadastrarPrestacao() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Product Added"));
+		return this.prestacaoContaService.savePrestacaoConta(new PrestacaoContaDTO(prestacaoSelecionada));
+	}
 }
