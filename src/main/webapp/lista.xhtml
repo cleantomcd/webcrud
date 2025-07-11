@@ -16,8 +16,8 @@
         <p:toolbar>
             <p:toolbarGroup>
             
-            	<!-- Botão Cadastrar -->
-                <p:commandButton value="Cadastrar" icon="pi pi-plus" actionListener="#{prestacaoContaController.criarPrestacao}"
+            	<!-- Botão Cadastrar  o objeto prestacaoSelecionada está sendo criado-->
+                <p:commandButton value="Cadastrar" icon="pi pi-plus" actionListener="#{prestacaoContaController.criarPrestacao}" 
                     update=":dialogs:manage-product-content" oncomplete="PF('manageProductDialog').show()"
                     styleClass="ui-button-success" style="margin-right: .5rem">
                     <p:resetInput target=":dialogs:manage-product-content" />
@@ -38,14 +38,14 @@
 	
 	
 		<!-- Tabela com as Prestações Cadastradas -->
-		
-        <p:dataTable id="dt-products" widgetVar="dtProducts" var="prestacoes" value="#{prestacaoContaController.prestacoesCadastradas}"
+		<!-- aparentemente, toda referência a prestacaoConta está sendo mapeada pra essa var, que possui uma list de DTOs-->
+        <p:dataTable id="dt-products" widgetVar="dtProducts" var="prestacaoContaDTO" value="#{prestacaoContaController.prestacoesCadastradas}"
             reflow="true" styleClass="products-table" selectionMode="multiple" selection="#{prestacaoContaController.prestacoesSelecionadas}"
-            rowKey="#{prestacao.id}" paginator="true" rows="10" selectionRowMode="add" paginatorPosition="bottom">
+            rowKey="#{prestacaoContaDTO.id}" paginator="true" rows="10" selectionRowMode="add" paginatorPosition="bottom">
             <f:facet name="header">
                 <div class="products-table-header">
                     <span style="font-weight: bold">PRESTAÇÕES</span>
-                    <span class="filter-container ui-input-icon-left" style="display: flex; justify-content: flex-end;"> <i class="pi pi-search" style="display:flex; justify-content: right; right: 175px"></i>
+                    <span class="filter-container ui-input-icon-left" style="display: flex; justify-content: flex-end;"> <i class="pi pi-search" style="display:flex; justify-content: right; "></i>
                         <p:inputText id="globalFilter" onkeyup="PrimeFaces.debounce(() => PF('dtProducts').filter())" placeholder="Pesquisar"/>
                     </span>
                 </div>
@@ -57,28 +57,28 @@
             <p:ajax event="rowUnselectCheckbox" update=":form:delete-products-button" />
             <p:ajax event="toggleSelect" update=":form:delete-products-button" />
 
-            <p:column selectionBox="true" exportable="false"></p:column>
+            <p:column selectionBox="true" exportable="false"></p:column> <!-- O botão não está sendo renderizado -->
 
-            <p:column headerText="ID" sortBy="#{prestacaoConta.id}" filterBy="#{prestacaoConta.id}">
-                <h:outputText value="#{prestacaoConta.id}" />
+            <p:column headerText="ID" sortBy="#{prestacaoContaDTO.id}" filterBy="#{prestacaoContaDTO.id}">
+                <h:outputText value="#{prestacaoContaDTO.id}" />
             </p:column>
             
-            <p:column headerText="Descrição" sortBy="#{prestacaoConta.descricao}" filterBy="#{prestacaoConta.descricao}">
-                <h:outputText value="#{prestacaoConta.descricao}" />
+            <p:column headerText="Descrição" sortBy="#{prestacaoContaDTO.descricao}" filterBy="#{prestacaoContaDTO.descricao}">
+                <h:outputText value="#{prestacaoContaDTO.descricao}" />
             </p:column>
             
             
-            <p:column headerText="Categoria" sortBy="#{prestacaoConta.categoria}" filterBy="#{prestacaoConta.categoria}">
-                <h:outputText value="#{prestacaoConta.categoria}" />
+            <p:column headerText="Categoria" sortBy="#{prestacaoContaDTO.categoria}" filterBy="#{prestacaoContaDTO.categoria}">
+                <h:outputText value="#{prestacaoContaDTO.categoria}" />
             </p:column>
 
-            <p:column headerText="Data" sortBy="#{prestacaoConta.data}"
-                filterBy="#{prestacaoConta.data}">
-                <h:outputText value="#{prestacaoConta.data}" />
+            <p:column headerText="Data" sortBy="#{prestacaoContaDTO.data}"
+                filterBy="#{prestacaoContaDTO.data}">
+                <h:outputText value="#{prestacaoContaDTO.data}" />
             </p:column>
             
-            <p:column headerText="Valor" sortBy="#{prestacaoConta.valor}" filterBy="#{prestacaoConta.descricao}">
-                <h:outputText value="#{prestacaoConta.valor}">
+            <p:column headerText="Valor" sortBy="#{prestacaoContaDTO.valor}" filterBy="#{prestacaoContaDTO.descricao}">
+                <h:outputText value="#{prestacaoContaDTO.valor}">
                     <f:convertNumber currencySymbol="R$" type="currency" />
                 </h:outputText>
             </p:column>
@@ -108,20 +108,19 @@
             responsive="true">
             <p:outputPanel id="manage-product-content" class="ui-fluid">
                 <p:outputPanel rendered="true">
-                    <!-- <p:graphicImage name="images/product/#{crudView.selectedProduct.image}" library="demo"
-                        styleClass="product-image" rendered="#{not empty crudView.selectedProduct.image}" /> -->
+
                     <div class="field">
                         <p:outputLabel for="id">ID</p:outputLabel>
-                        <p:inputText id="id" value="#{prestacaoConta.prestacaoSelecionada.id}" required="true" />
+                        <p:inputText id="id" value="#{prestacaoContaController.prestacaoSelecionada.id}" required="true" />
                     </div>
                     <div class="field">
                         <p:outputLabel for="descricao">Descrição</p:outputLabel>
-                        <p:inputTextarea id="descricao" value="#{prestacaoConta.prestacaoSelecionada.descricao}" />
+                        <p:inputTextarea id="descricao" value="#{prestacaoContaController.prestacaoSelecionada.descricao}" />
                     </div>
                     <div class="field">
                         <p:outputLabel for="categoria">Categoria</p:outputLabel>
-                        <p:selectOneRadio id="categoria" value="#{prestacaoConta.prestacaoSelecionada.categoria}" required="true"
-                            layout="responsive" columns="2">
+                        <p:selectOneRadio id="categoria" value="#{prestacaoContaController.prestacaoSelecionada.categoria}" required="true"
+                            layout="responsive" columns="4">
                             <f:selectItem itemLabel="1" itemValue="1" />
                             <f:selectItem itemLabel="2" itemValue="2" />
                             <f:selectItem itemLabel="3" itemValue="3" />
@@ -131,13 +130,19 @@
                     <div class="formgrid grid">
                         <div class="field col">
                             <p:outputLabel for="valor">Valor</p:outputLabel>
-                            <p:inputNumber id="valor" value="#{prestacaoConta.prestacaoSelecionada.valor}" required="true" symbol=" R$"
-                                symbolPosition="p" decimalSeparator="." thousandSeparator="," />
+                            <p:inputNumber id="valor" value="#{prestacaoContaController.prestacaoSelecionada.valor}" required="true" symbol="R$ "
+                                symbolPosition="p" decimalSeparator="," thousandSeparator="." />
                         </div>
                         <div class="field col">
-                            <p:outputLabel for="data">Data</p:outputLabel>
-                            <p:spinner id="data" min="0" value="#{prestacaoConta.prestacaoSelecionada.data}" required="true" />
-                        </div>
+					    <p:outputLabel for="data" value="Data" />
+					    <p:datePicker id="data"
+					                  value="#{prestacaoContaController.prestacaoSelecionada.data}"
+					                  pattern="dd/MM/yyyy"
+					                  showIcon="true"
+					                  placeholder="dd/mm/aaaa"
+					                  required="true" />
+						</div>
+
                     </div>
                 </p:outputPanel>
             </p:outputPanel>
