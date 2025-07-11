@@ -1,7 +1,10 @@
 package webcrud.org.control;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -16,7 +19,9 @@ import webcrud.org.model.service.PrestacaoContaService;
 
 @Named
 @ApplicationScoped
-public class PrestacaoContaController {
+public class PrestacaoContaController implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private PrestacaoContaService prestacaoContaService;
@@ -24,6 +29,11 @@ public class PrestacaoContaController {
 	private PrestacaoConta prestacaoSelecionada;
 
 	private List<PrestacaoConta> prestacoesSelecionadas;
+	
+	@PostConstruct
+	public void init() {
+		this.prestacoesSelecionadas = new ArrayList<PrestacaoConta>();
+	}
 
 	public PrestacaoContaController() {
 
@@ -52,8 +62,10 @@ public class PrestacaoContaController {
 	public boolean possuiPrestacoesSelecionadas() {
 		return prestacoesSelecionadas != null && !prestacoesSelecionadas.isEmpty();
 	}
-
-	public List<PrestacaoContaDTO> getPrestacoesCadastradas() {
+	
+	
+	// possíveis soluções: alterar para retornar a entidade PrestacaoConta ou tratar os DTOs de maneira correta. Verificar os lugares nos quais se cria uma entidade de PrestacaoConta e converter para DTO
+	public List<PrestacaoContaDTO> getPrestacoesCadastradas() { //problema: na view, o value acessado na dataTable está sendo um DTO, que não possui (ver) getters públicos
 		return this.prestacaoContaService.getAllPrestacaoConta();
 	}
 
@@ -70,10 +82,10 @@ public class PrestacaoContaController {
 	}
 
 	public boolean cadastrarPrestacao() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Prestação cadastrada"));
-        PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
 
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Prestação cadastrada"));
+		PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
+		PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
 		return this.prestacaoContaService.savePrestacaoConta(new PrestacaoContaDTO(prestacaoSelecionada));
 	}
 }
