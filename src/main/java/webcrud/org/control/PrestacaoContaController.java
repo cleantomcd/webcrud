@@ -8,6 +8,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
+
 import webcrud.org.model.entity.PrestacaoConta;
 import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 import webcrud.org.model.service.PrestacaoContaService;
@@ -68,7 +70,10 @@ public class PrestacaoContaController {
 	}
 
 	public boolean cadastrarPrestacao() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Product Added"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Prestação cadastrada"));
+        PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
+
 		return this.prestacaoContaService.savePrestacaoConta(new PrestacaoContaDTO(prestacaoSelecionada));
 	}
 }
