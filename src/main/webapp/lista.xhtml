@@ -157,8 +157,8 @@
         </p:dialog>
 
         <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
-            message="Delete the product?" header="Confirm" severity="warn">
-            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{crudView.deleteProduct}"
+            message="Excluir este registro?" header="Excluir" severity="warn">
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{prestacaoContaController.deleteProduct}"
                 process="@this" update=":form:delete-products-button"
                 oncomplete="PF('deleteProductDialog').hide()" />
             <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"

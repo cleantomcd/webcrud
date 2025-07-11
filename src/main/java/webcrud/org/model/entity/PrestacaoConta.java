@@ -55,7 +55,6 @@ public class PrestacaoConta implements Serializable {
 		this.valor = valor;
 	}
 	
-	// mapear na request String -> Date (verificar se precisa do mapeamento ou se é apenas o formato que está errado) OU trocar para string e converter? (feio)
 	public LocalDate getData() {
 		return data;
 	}

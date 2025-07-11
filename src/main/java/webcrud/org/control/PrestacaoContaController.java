@@ -76,6 +76,10 @@ public class PrestacaoContaController implements Serializable {
 	public void deletePrestacoesSelecionadas() {
 		this.prestacoesSelecionadas.clear();
 	}
+	
+	public void deletePrestacaoSelecionada() {
+		
+	}
 
 	public List<PrestacaoConta> getPrestacoesSelecionadas() {
 		return this.prestacoesSelecionadas;
