@@ -1,13 +1,16 @@
 package webcrud.org.model.entity;
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 
 
 //@Entity
 //@Table(name = "PRESTACAO_CONTA")
-public class PrestacaoConta {
+public class PrestacaoConta implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	//@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,9 +18,11 @@ public class PrestacaoConta {
 
 	private String descricao;
 	private int valor;
-	private Date data;
+	private LocalDate data;
 	private String categoria;
-
+	
+	
+	// gerar o id automaticamente
 	public PrestacaoConta() {}
 
 	public PrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
@@ -27,6 +32,11 @@ public class PrestacaoConta {
 		this.valor = prestacaoContaDTO.valor();
 		this.data = prestacaoContaDTO.data();
 		this.categoria = prestacaoContaDTO.categoria();
+	}
+	
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getId() {
@@ -44,10 +54,12 @@ public class PrestacaoConta {
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
-	public Date getData() {
+	
+	// mapear na request String -> Date (verificar se precisa do mapeamento ou se é apenas o formato que está errado) OU trocar para string e converter? (feio)
+	public LocalDate getData() {
 		return data;
 	}
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 	public String getCategoria() {
