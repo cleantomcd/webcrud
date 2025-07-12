@@ -49,7 +49,7 @@ public class PrestacaoContaService implements Serializable {
 	}
 
 	public boolean deletePrestacaoConta(Long id) {
-		return prestacoes.removeIf(prestacao -> prestacao.getId().equals(id)); // temporário para remover o da List (enquanto sem o jpa)
+		return prestacoes.removeIf(prestacao -> prestacao.getId().equals(id));
 		
 		//return prestacaoContaImpl.deletePrestacaoConta(id);
 	}

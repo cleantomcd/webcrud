@@ -82,8 +82,6 @@ public class PrestacaoContaController implements Serializable {
 		return this.prestacoesSelecionadas;
 	}
 	
-	
-	
 	//essa duplicação de código tá feia dms
 	public void deletePrestacoesSelecionadas() {
 		System.out.println("entrou aqui aidento");
@@ -103,7 +101,6 @@ public class PrestacaoContaController implements Serializable {
 	}
 
 	public boolean cadastrarPrestacao() {
-
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Prestação cadastrada"));
 		PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
 		PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
