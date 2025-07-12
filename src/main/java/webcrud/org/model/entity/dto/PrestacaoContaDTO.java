@@ -13,7 +13,7 @@ public record PrestacaoContaDTO(Long id, String descricao, int valor, LocalDate 
     public PrestacaoContaDTO(String descricao, int valor, LocalDate data) {
         this(null, descricao, valor, data, null);
     }
-    
+
     public PrestacaoContaDTO(Long id, String descricao, int valor, LocalDate data, String categoria) {
     	this.id = id;
     	this.descricao = descricao;
@@ -44,7 +44,7 @@ public record PrestacaoContaDTO(Long id, String descricao, int valor, LocalDate 
 
 
 
-	
+
 
 }
 

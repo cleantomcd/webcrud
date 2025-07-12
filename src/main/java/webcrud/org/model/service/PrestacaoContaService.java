@@ -1,7 +1,6 @@
 package webcrud.org.model.service;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +10,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import webcrud.org.model.entity.PrestacaoConta;
 import webcrud.org.model.entity.dao.PrestacaoContaImpl;
 import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 
@@ -24,15 +24,15 @@ public class PrestacaoContaService implements Serializable {
 	private PrestacaoContaImpl prestacaoContaImpl;
 
 	private List<PrestacaoContaDTO> prestacoes;
-	
+
 	@PostConstruct
-	public void init() throws ParseException {
+	public void init() {
         this.prestacoes = new ArrayList<>();
-        PrestacaoContaDTO p = new PrestacaoContaDTO(23342L, "desc" ,1230, LocalDate.now(), "Categoria"); 
-        prestacoes.add(p);        prestacoes.add(p);
-        prestacoes.add(p);
-        prestacoes.add(p);
-        prestacoes.add(p);
+        prestacoes.add(new PrestacaoContaDTO(10001L, "Aluguel escritório", 2500, LocalDate.of(2025, 7, 1), "1"));
+        prestacoes.add(new PrestacaoContaDTO(10002L, "Compra de materiais", 780, LocalDate.of(2025, 6, 25), "2"));
+        prestacoes.add(new PrestacaoContaDTO(10003L, "Serviços terceirizados", 1500, LocalDate.of(2025, 6, 28), "3"));
+        prestacoes.add(new PrestacaoContaDTO(10004L, "Transporte", 320, LocalDate.of(2025, 7, 5), "4"));
+
 
     }
 
@@ -45,13 +45,20 @@ public class PrestacaoContaService implements Serializable {
 	}
 
 	public boolean savePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
-		System.out.println("entrou aqui");//enquanto não está integrado com a JPA, temos que criar manualmente
-		return prestacoes.add(prestacaoContaDTO);
+		return prestacoes.add(prestacaoContaDTO); // corrigir para adicionar no repository DAO.
 	}
 
 	public boolean deletePrestacaoConta(Long id) {
-		return prestacaoContaImpl.deletePrestacaoConta(id);
+		return prestacoes.removeIf(prestacao -> prestacao.getId().equals(id)); // temporário para remover o da List (enquanto sem o jpa)
+		
+		//return prestacaoContaImpl.deletePrestacaoConta(id);
 	}
+	
+	public boolean deletePrestacaoConta(List<PrestacaoConta> prestacoes) {
+		return prestacoes.removeAll(prestacoes);
+		//return prestacaoContaImpl.deletePrestacaoConta(prestacoes); ---> implementar
+	}
+
 
 	public void updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
 		prestacaoContaImpl.updatePrestacaoConta(prestacaoContaDTO);

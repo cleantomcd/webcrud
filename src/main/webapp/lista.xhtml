@@ -63,7 +63,7 @@
 							style="display: flex; justify-content: right;"></i> <p:inputText
 								id="globalFilter"
 								onkeyup="PrimeFaces.debounce(() => PF('dtProducts').filter())"
-								placeholder="Pesquisar" 
+								placeholder="Pesquisar"
 								style="width: 200px;" />
 							</span>
 					</div>
@@ -102,8 +102,8 @@
 						oncomplete="PF('manageProductDialog').show()"
 						styleClass="edit-button rounded-button ui-button-success"
 						process="@this">
-						<f:setPropertyActionListener value="#{prestacaoConta}"
-							target="#{prestacaoContaController.prestacaoSelecionada}" />
+						<f:setPropertyActionListener value="#{prestacaoContaDTO}"
+							target="#{prestacaoContaController.DTOtoPrestacaoSelecionada}" />
 						<p:resetInput target=":dialogs:manage-product-content" />
 					</p:commandButton>
 					<!-- botao excluir -->
@@ -111,16 +111,14 @@
 						icon="pi pi-trash" process="@this"
 						style="background-color:  #ff6b6b; color: white;"
 						oncomplete="PF('deleteProductDialog').show()">
-						<f:setPropertyActionListener value="#{prestacaoConta}"
-							target="#{prestacaoContaController.prestacaoSelecionada}" />
+						<f:setPropertyActionListener value="#{prestacaoContaDTO}" target="#{prestacaoContaController.DTOtoPrestacaoSelecionada}" />
 					</p:commandButton>
 					<!-- botao detalhes -->
 					<p:commandButton icon="pi pi-eye" style="background-color: #87cefa"
 						update=":dialogs:detalhes-content"
 						oncomplete="PF('manageDetalhesDialog').show()"
 						styleClass="rounded-button ui-button-info" process="@this">
-						<f:setPropertyActionListener value="#{prestacaoConta}"
-							target="#{prestacaoContaController.prestacaoSelecionada}" />
+						<f:setPropertyActionListener value="#{prestacaoContaDTO}" target="#{prestacaoContaController.DTOtoPrestacaoSelecionada}" />
 					</p:commandButton>
 				</p:column>
 
@@ -197,7 +195,7 @@
 				severity="warn">
 				<p:commandButton value="Sim" icon="pi pi-check"
 					style="background-color:  #ff6b6b; color: white;"
-					actionListener="#{crudView.deleteProduct}" process="@this"
+					actionListener="#{prestacaoContaController.deletePrestacaoSelecionada}" process="@this"
 					update=":form:delete-products-button"
 					oncomplete="PF('deleteProductDialog').hide()" />
 				<p:commandButton value="Não" type="button"
@@ -213,7 +211,7 @@
 					styleClass="ui-confirmdialog-no ui-button-secondary"
 					icon="pi pi-times" />
 			</p:confirmDialog>
-			
+
 			<p:dialog header="Detalhes da Prestação de Contas"
 					widgetVar="manageDetalhesDialog" modal="true" showEffect="fade"
 					hideEffect="fade" resizable="false" draggable="false"
@@ -241,7 +239,7 @@
 
 					</h:panelGrid>
 				</p:dialog>
-			
+
 		</h:form>
 
 

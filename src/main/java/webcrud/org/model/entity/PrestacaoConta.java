@@ -20,8 +20,8 @@ public class PrestacaoConta implements Serializable {
 	private int valor;
 	private LocalDate data;
 	private String categoria;
-	
-	
+
+
 	// gerar o id automaticamente
 	public PrestacaoConta() {}
 
@@ -33,8 +33,8 @@ public class PrestacaoConta implements Serializable {
 		this.data = prestacaoContaDTO.data();
 		this.categoria = prestacaoContaDTO.categoria();
 	}
-	
-	
+
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -54,8 +54,7 @@ public class PrestacaoConta implements Serializable {
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
-	
-	// mapear na request String -> Date (verificar se precisa do mapeamento ou se é apenas o formato que está errado) OU trocar para string e converter? (feio)
+
 	public LocalDate getData() {
 		return data;
 	}

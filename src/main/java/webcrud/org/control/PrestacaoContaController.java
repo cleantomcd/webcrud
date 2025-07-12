@@ -2,6 +2,7 @@ package webcrud.org.control;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -29,10 +30,10 @@ public class PrestacaoContaController implements Serializable {
 	private PrestacaoConta prestacaoSelecionada;
 
 	private List<PrestacaoConta> prestacoesSelecionadas;
-	
+
 	@PostConstruct
 	public void init() {
-		this.prestacoesSelecionadas = new ArrayList<PrestacaoConta>();
+		this.prestacoesSelecionadas = new ArrayList<>();
 	}
 
 	public PrestacaoContaController() {
@@ -41,6 +42,10 @@ public class PrestacaoContaController implements Serializable {
 
 	public void setPrestacaoSelecionada(PrestacaoConta prestacaoSelecionada) {
 		this.prestacaoSelecionada = prestacaoSelecionada;
+	}
+	
+	public void setDTOtoPrestacaoSelecionada(PrestacaoContaDTO prestacaoDTO) {
+		this.prestacaoSelecionada = new PrestacaoConta(prestacaoDTO);
 	}
 
 	public void setPrestacoesSelecionadas(List<PrestacaoConta> prestacoesSelecionadas) {
@@ -62,8 +67,8 @@ public class PrestacaoContaController implements Serializable {
 	public boolean possuiPrestacoesSelecionadas() {
 		return prestacoesSelecionadas != null && !prestacoesSelecionadas.isEmpty();
 	}
-	
-	
+
+
 	// possíveis soluções: alterar para retornar a entidade PrestacaoConta ou tratar os DTOs de maneira correta. Verificar os lugares nos quais se cria uma entidade de PrestacaoConta e converter para DTO
 	public List<PrestacaoContaDTO> getPrestacoesCadastradas() { //problema: na view, o value acessado na dataTable está sendo um DTO, que não possui (ver) getters públicos
 		return this.prestacaoContaService.getAllPrestacaoConta();
@@ -72,13 +77,29 @@ public class PrestacaoContaController implements Serializable {
 	public PrestacaoConta getPrestacaoSelecionada() {
 		return this.prestacaoSelecionada;
 	}
-
-	public void deletePrestacoesSelecionadas() {
-		this.prestacoesSelecionadas.clear();
-	}
-
+	
 	public List<PrestacaoConta> getPrestacoesSelecionadas() {
 		return this.prestacoesSelecionadas;
+	}
+	
+	
+	
+	//essa duplicação de código tá feia dms
+	public void deletePrestacoesSelecionadas() {
+		System.out.println("entrou aqui aidento");
+		System.out.println(Arrays.toString(this.prestacoesSelecionadas.toArray()));
+		this.prestacaoContaService.deletePrestacaoConta(this.prestacoesSelecionadas);
+		this.prestacoesSelecionadas.clear();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Registros excluídos"));
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
+	}
+
+	public void deletePrestacaoSelecionada() {
+		this.prestacaoContaService.deletePrestacaoConta(this.prestacaoSelecionada.getId());
+		this.prestacoesSelecionadas.remove(this.prestacaoSelecionada);
+		this.prestacaoSelecionada = null;
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Registro excluído"));
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
 	}
 
 	public boolean cadastrarPrestacao() {
