@@ -84,14 +84,6 @@
 					filterBy="#{prestacaoContaDTO.id}">
 					<h:outputText value="#{prestacaoContaDTO.id}" />
 				</p:column>
-
-				<p:column headerText="Descrição"
-					sortBy="#{prestacaoContaDTO.descricao}"
-					filterBy="#{prestacaoContaDTO.descricao}">
-					<h:outputText value="#{prestacaoContaDTO.descricao}" />
-				</p:column>
-
-
 				<p:column headerText="Categoria"
 					sortBy="#{prestacaoContaDTO.categoria}"
 					filterBy="#{prestacaoContaDTO.categoria}">
@@ -101,13 +93,6 @@
 				<p:column headerText="Data" sortBy="#{prestacaoContaDTO.data}"
 					filterBy="#{prestacaoContaDTO.data}">
 					<h:outputText value="#{prestacaoContaDTO.data}" />
-				</p:column>
-
-				<p:column headerText="Valor" sortBy="#{prestacaoContaDTO.valor}"
-					filterBy="#{prestacaoContaDTO.descricao}">
-					<h:outputText value="#{prestacaoContaDTO.valor}">
-						<f:convertNumber currencySymbol="R$" type="currency" />
-					</h:outputText>
 				</p:column>
 
 				<p:column exportable="false" ariaHeaderText="Actions">
@@ -124,6 +109,7 @@
 					<!-- botao excluir -->
 					<p:commandButton class="ui-button-warning rounded-button"
 						icon="pi pi-trash" process="@this"
+						style="background-color:  #ff6b6b; color: white;"
 						oncomplete="PF('deleteProductDialog').show()">
 						<f:setPropertyActionListener value="#{prestacaoConta}"
 							target="#{prestacaoContaController.prestacaoSelecionada}" />
@@ -136,7 +122,6 @@
 						<f:setPropertyActionListener value="#{prestacaoConta}"
 							target="#{prestacaoContaController.prestacaoSelecionada}" />
 					</p:commandButton>
-
 				</p:column>
 
 			</p:dataTable>
@@ -209,10 +194,12 @@
 				width="300" message="Deseja deletar essa prestação?" header="Confirm"
 				severity="warn">
 				<p:commandButton value="Sim" icon="pi pi-check"
+					style = "background-color: #f44336; color: white;"
 					actionListener="#{crudView.deleteProduct}" process="@this"
 					update=":form:delete-products-button"
 					oncomplete="PF('deleteProductDialog').hide()" />
 				<p:commandButton value="Não" type="button"
+					style="background-color: #9e9e9e; color: white;"
 					styleClass="ui-button-secondary" icon="pi pi-times"
 					onclick="PF('deleteProductDialog').hide()" />
 			</p:confirmDialog>
