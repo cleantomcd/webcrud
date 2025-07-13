@@ -7,10 +7,12 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Named
 @ApplicationScoped
+@Transactional
 public class PrestacaoContaImpl implements PrestacaoContaDAO {
 
     @PersistenceContext(unitName = "webcrud")
@@ -49,8 +51,9 @@ public class PrestacaoContaImpl implements PrestacaoContaDAO {
 
     @Override
     public boolean updatePrestacaoConta(PrestacaoContaDTO dto) {
-        deletePrestacaoConta(dto.id());
-        return savePrestacaoConta(dto);
+        PrestacaoConta pc = new PrestacaoConta(dto);
+        em.merge(pc);
+        return true;
     }
 
     @Override
