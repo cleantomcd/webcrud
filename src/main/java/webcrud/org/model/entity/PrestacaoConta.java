@@ -1,6 +1,11 @@
 package webcrud.org.model.entity;
 
+import webcrud.org.model.entity.dto.PrestacaoContaDTO;
+import webcrud.org.model.entity.Categoria;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -18,56 +23,44 @@ public class PrestacaoConta implements Serializable {
 	private Long id;
 
 	private String descricao;
-	private int valor;
+
+	private BigDecimal valor;
+
 	private LocalDate data;
-	private String categoria;
 
+	@Enumerated(EnumType.STRING)
+	private Categoria categoria;
 
-	// gerar o id automaticamente
-	public PrestacaoConta() {}
-
-	public PrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
-		super();
-		this.id = prestacaoContaDTO.id();
-		this.descricao = prestacaoContaDTO.descricao();
-		this.valor = prestacaoContaDTO.valor();
-		this.data = prestacaoContaDTO.data();
-		this.categoria = prestacaoContaDTO.categoria();
+	public PrestacaoConta() {
 	}
 
-
-	public void setId(Long id) {
-		this.id = id;
+	public PrestacaoConta(PrestacaoContaDTO dto) {
+		this.id = dto.id();
+		this.descricao = dto.descricao();
+		this.valor = dto.valor();
+		this.data = dto.data();
+		this.categoria = dto.categoria();
 	}
 
-	public Long getId() {
-		return this.id;
-	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	public int getValor() {
-		return valor;
-	}
-	public void setValor(int valor) {
-		this.valor = valor;
-	}
+	public Long getId() { return id; }
 
-	public LocalDate getData() {
-		return data;
-	}
-	public void setData(LocalDate data) {
-		this.data = data;
-	}
-	public String getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
+	public void setId(Long id) { this.id = id; }
+
+	public String getDescricao() { return descricao; }
+
+	public void setDescricao(String descricao) { this.descricao = descricao; }
+
+	public BigDecimal getValor() { return valor; }
+
+	public void setValor(BigDecimal valor) { this.valor = valor; }
+
+	public LocalDate getData() { return data; }
+
+	public void setData(LocalDate data) { this.data = data; }
+
+	public Categoria getCategoria() { return categoria; }
+
+	public void setCategoria(Categoria categoria) { this.categoria = categoria; }
 
 	@Override
 	public boolean equals(Object obj) {
@@ -81,5 +74,4 @@ public class PrestacaoConta implements Serializable {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
 }

@@ -83,9 +83,9 @@
                     <h:outputText value="#{prestacaoConta.id}"/>
                 </p:column>
                 <p:column headerText="Categoria"
-                          sortBy="#{prestacaoConta.categoria}"
-                          filterBy="#{prestacaoConta.categoria}">
-                    <h:outputText value="#{prestacaoConta.categoria}"/>
+                          sortBy="#{prestacaoConta.categoria.label}"
+                          filterBy="#{prestacaoConta.categoria.label}">
+                    <h:outputText value="#{prestacaoConta.categoria.label}"/>
                 </p:column>
 
                 <p:column headerText="Data" sortBy="#{prestacaoConta.data}"
@@ -147,14 +147,15 @@
                         </div>
                         <div class="field">
                             <p:outputLabel for="categoria">Categoria</p:outputLabel>
-                            <p:selectOneRadio id="categoria"
-                                              value="#{prestacaoContaController.prestacaoSelecionada.categoria}"
-                                              required="true" layout="responsive" columns="4">
-                                <f:selectItem itemLabel="1" itemValue="1"/>
-                                <f:selectItem itemLabel="2" itemValue="2"/>
-                                <f:selectItem itemLabel="3" itemValue="3"/>
-                                <f:selectItem itemLabel="4" itemValue="4"/>
-                            </p:selectOneRadio>
+                            <p:selectOneMenu id="categoria"
+                                             value="#{prestacaoContaController.prestacaoSelecionada.categoria}"
+                                             required="true" style="width: 100%;">
+                                <f:selectItem itemLabel="Selecione a categoria" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{prestacaoContaController.categorias}"
+                                               var="cat"
+                                               itemValue="#{cat}"
+                                               itemLabel="#{cat.label}"/>
+                            </p:selectOneMenu>
                         </div>
                         <div class="formgrid grid">
                             <div class="field col">

@@ -1,6 +1,7 @@
 package webcrud.org.control;
 
 import org.primefaces.PrimeFaces;
+import webcrud.org.model.entity.Categoria;
 import webcrud.org.model.entity.PrestacaoConta;
 import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 import webcrud.org.model.service.PrestacaoContaService;
@@ -39,6 +40,9 @@ public class PrestacaoContaController implements Serializable {
     @PostConstruct
     public void init() {
         this.prestacoesSelecionadas = new ArrayList<>();
+        if (prestacaoSelecionada == null) {
+            prestacaoSelecionada = new PrestacaoConta();
+        }
     }
 
     public void criarPrestacao() {
@@ -64,6 +68,10 @@ public class PrestacaoContaController implements Serializable {
 
     public void setEditing() {
         this.editing = true;
+    }
+
+    public Categoria[] getCategorias() {
+        return Categoria.values();
     }
 
     public String formatData(LocalDate data) {
