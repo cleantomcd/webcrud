@@ -42,10 +42,6 @@ public record PrestacaoContaDTO(Long id, String descricao, int valor, LocalDate 
 		return categoria;
 	}
 
-
-
-
-
 }
 
 

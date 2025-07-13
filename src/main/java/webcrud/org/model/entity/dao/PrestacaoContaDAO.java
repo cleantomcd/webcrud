@@ -7,9 +7,9 @@ import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 
 public interface PrestacaoContaDAO {
 
-	public List<PrestacaoContaDTO> getAllPrestacaoConta();
+	public List<PrestacaoConta> getAllPrestacaoConta();
 
-	public PrestacaoContaDTO getById(Long id);
+	public PrestacaoConta getById(Long id);
 
 	public boolean savePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO);
 

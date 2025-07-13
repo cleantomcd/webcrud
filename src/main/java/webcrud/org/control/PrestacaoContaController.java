@@ -39,10 +39,6 @@ public class PrestacaoContaController implements Serializable {
         this.prestacoesSelecionadas = new ArrayList<>();
     }
 
-    public void setDTOtoPrestacaoSelecionada(PrestacaoContaDTO prestacaoDTO) {
-        this.prestacaoSelecionada = new PrestacaoConta(prestacaoDTO);
-    }
-
     public void criarPrestacao() {
         this.prestacaoSelecionada = new PrestacaoConta();
     }
@@ -64,15 +60,13 @@ public class PrestacaoContaController implements Serializable {
     }
 
     public String formatData() {
-        if (prestacaoSelecionada != null && prestacaoSelecionada.getData() != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            return prestacaoSelecionada.getData().format(formatter);
+        if (prestacaoSelecionada != null) {
+            return this.formatData(prestacaoSelecionada.getData());
         }
         return "";
     }
 
-    // possíveis soluções: alterar para retornar a entidade PrestacaoConta ou tratar os DTOs de maneira correta. Verificar os lugares nos quais se cria uma entidade de PrestacaoConta e converter para DTO
-    public List<PrestacaoContaDTO> getPrestacoesCadastradas() { //problema: na view, o value acessado na dataTable está sendo um DTO, que não possui (ver) getters públicos
+    public List<PrestacaoConta> getPrestacoesCadastradas() {
         return this.prestacaoContaService.getAllPrestacaoConta();
     }
 

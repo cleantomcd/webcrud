@@ -23,8 +23,6 @@ public class PrestacaoContaService implements Serializable {
 	@Inject
 	private PrestacaoContaImpl prestacaoContaImpl;
 
-	private List<PrestacaoContaDTO> prestacoes;
-
 	@PostConstruct
 	public void init() {
 		prestacaoContaImpl.savePrestacaoConta(new PrestacaoContaDTO(10001L, "Aluguel escritório", 2500, LocalDate.of(2025, 7, 1), "1"));
@@ -33,15 +31,15 @@ public class PrestacaoContaService implements Serializable {
 		prestacaoContaImpl.savePrestacaoConta(new PrestacaoContaDTO(10004L, "Transporte", 320, LocalDate.of(2025, 7, 5), "4"));
     }
 
-	public List<PrestacaoContaDTO> getAllPrestacaoConta() {
+	public List<PrestacaoConta> getAllPrestacaoConta() {
 		 return prestacaoContaImpl.getAllPrestacaoConta();
 	}
-	public PrestacaoContaDTO getById(Long id) {
+	public PrestacaoConta getById(Long id) {
 		return prestacaoContaImpl.getById(id);
 	}
 
 	public boolean savePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
-		return prestacaoContaImpl.savePrestacaoConta(prestacaoContaDTO); // corrigir para adicionar no repository DAO.
+		return prestacaoContaImpl.savePrestacaoConta(prestacaoContaDTO);
 	}
 
 	public boolean deletePrestacaoConta(Long id) {

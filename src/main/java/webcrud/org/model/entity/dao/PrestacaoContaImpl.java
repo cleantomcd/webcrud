@@ -18,17 +18,17 @@ public class PrestacaoContaImpl implements PrestacaoContaDAO {
     ArrayList<PrestacaoConta> prestacaoContas = new ArrayList<>();
 
     @Override
-    public List<PrestacaoContaDTO> getAllPrestacaoConta() {
-        return prestacaoContas.stream().map(prestacao -> new PrestacaoContaDTO(prestacao.getDescricao(), prestacao.getValor(), prestacao.getData())).collect(Collectors.toList());
+    public List<PrestacaoConta> getAllPrestacaoConta() {
+        return prestacaoContas;
     }
 
     @Override
-    public PrestacaoContaDTO getById(Long id) {
+    public PrestacaoConta getById(Long id) {
         PrestacaoConta prestacaoConta = getPrestacaoConta(id);
         if (prestacaoConta == null) {
             throw new NullPointerException("Não há prestação de contas com ess id");
         }
-        return new PrestacaoContaDTO(prestacaoConta);
+        return prestacaoConta;
     }
 
     @Override
