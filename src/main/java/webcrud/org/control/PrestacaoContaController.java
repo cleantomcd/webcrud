@@ -121,7 +121,6 @@ public class PrestacaoContaController implements Serializable {
         } else {
             return this.prestacaoContaService.savePrestacaoConta(new PrestacaoContaDTO(prestacaoSelecionada));
         }
-
     }
 
     public void renderPage(String message) {
