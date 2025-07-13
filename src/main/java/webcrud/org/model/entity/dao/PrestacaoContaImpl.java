@@ -2,6 +2,7 @@ package webcrud.org.model.entity.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -40,6 +41,17 @@ public class PrestacaoContaImpl implements PrestacaoContaDAO {
         PrestacaoConta prestacaoConta = getPrestacaoConta(id);
         return prestacaoConta != null && prestacaoContas.remove(prestacaoConta);
     }
+
+    public void deletePrestacaoConta(List<PrestacaoConta> prestacoes) {
+        Set<Long> idsParaRemover = prestacoes.stream()
+                .map(PrestacaoConta::getId)
+                .collect(Collectors.toSet());
+
+        this.prestacaoContas = (ArrayList<PrestacaoConta>) this.prestacaoContas.stream()
+                .filter(pc -> !idsParaRemover.contains(pc.getId()))
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public void updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
