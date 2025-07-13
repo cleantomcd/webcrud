@@ -56,7 +56,10 @@ public class PrestacaoContaController implements Serializable {
     }
 
     public String formatData(LocalDate data) {
-        return data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        if (data != null) {
+            return data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        }
+        return "";
     }
 
     public String formatData() {

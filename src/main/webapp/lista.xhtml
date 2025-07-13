@@ -32,10 +32,22 @@
                                      styleClass="ui-button-danger"
                                      disabled="#{!prestacaoContaController.possuiPrestacoesSelecionadas()}"
                                      update="@this">
+                        <f:setPropertyActionListener value="#{prestacaoConta}"
+                                                     target="#{prestacaoContaController.prestacoesSelecionadas}"/>
                         <p:confirm header="Confirmação"
                                    message="Excluir os registros selecionados?"
                                    icon="pi pi-exclamation-triangle"/>
                     </p:commandButton>
+
+                    <p:confirmDialog global="true" showEffect="fade" width="300">
+                        <p:commandButton value="Sim" type="button"
+                                         styleClass="ui-confirmdialog-yes" icon="pi pi-check"
+                                         actionListener="#{prestacaoContaController.deletePrestacoesSelecionadas}" process="@this"
+                                         update=":form:delete-products-button"/>
+                        <p:commandButton value="Não" type="button"
+                                         styleClass="ui-confirmdialog-no ui-button-secondary"
+                                         icon="pi pi-times"/>
+                    </p:confirmDialog>
 
 
                 </p:toolbarGroup>
@@ -197,14 +209,6 @@
                                  style="background-color: #9e9e9e; color: white;"
                                  styleClass="ui-button-secondary" icon="pi pi-times"
                                  onclick="PF('deleteProductDialog').hide()"/>
-            </p:confirmDialog>
-
-            <p:confirmDialog global="true" showEffect="fade" width="300">
-                <p:commandButton value="Yes" type="button"
-                                 styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
-                <p:commandButton value="No" type="button"
-                                 styleClass="ui-confirmdialog-no ui-button-secondary"
-                                 icon="pi pi-times"/>
             </p:confirmDialog>
 
             <p:dialog header="Detalhes da Prestação de Contas"
