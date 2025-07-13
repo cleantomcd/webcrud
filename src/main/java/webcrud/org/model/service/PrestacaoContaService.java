@@ -1,54 +1,51 @@
 package webcrud.org.model.service;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
+import webcrud.org.model.entity.PrestacaoConta;
+import webcrud.org.model.entity.dao.PrestacaoContaImpl;
+import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import webcrud.org.model.entity.Categoria;
-import webcrud.org.model.entity.PrestacaoConta;
-import webcrud.org.model.entity.dao.PrestacaoContaImpl;
-import webcrud.org.model.entity.dto.PrestacaoContaDTO;
+import java.io.Serializable;
+import java.util.List;
 
 @Named
 @ApplicationScoped
 public class PrestacaoContaService implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Inject
-	private PrestacaoContaImpl prestacaoContaImpl;
+    @Inject
+    private PrestacaoContaImpl prestacaoContaImpl;
 
-	@PostConstruct
-	public void init() {
+    @PostConstruct
+    public void init() {
     }
 
-	public List<PrestacaoConta> getAllPrestacaoConta() {
-		 return prestacaoContaImpl.getAllPrestacaoConta();
-	}
-	public PrestacaoConta getById(Long id) {
-		return prestacaoContaImpl.getById(id);
-	}
+    public List<PrestacaoConta> getAllPrestacaoConta() {
+        return prestacaoContaImpl.getAllPrestacaoConta();
+    }
 
-	public boolean savePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
-		return prestacaoContaImpl.savePrestacaoConta(prestacaoContaDTO);
-	}
+    public PrestacaoConta getById(Long id) {
+        return prestacaoContaImpl.getById(id);
+    }
 
-	public boolean deletePrestacaoConta(Long id) {
-		return prestacaoContaImpl.deletePrestacaoConta(id);
-	}
-	
-	public void deletePrestacaoConta(List<PrestacaoConta> prestacoes) {
-		prestacaoContaImpl.deletePrestacaoConta(prestacoes);
-	}
+    public boolean savePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
+        return prestacaoContaImpl.savePrestacaoConta(prestacaoContaDTO);
+    }
 
-	public boolean updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
-		return prestacaoContaImpl.updatePrestacaoConta(prestacaoContaDTO);
-	}
+    public boolean deletePrestacaoConta(Long id) {
+        return prestacaoContaImpl.deletePrestacaoConta(id);
+    }
+
+    public void deletePrestacaoConta(List<PrestacaoConta> prestacoes) {
+        prestacaoContaImpl.deletePrestacaoConta(prestacoes);
+    }
+
+    public boolean updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
+        return prestacaoContaImpl.updatePrestacaoConta(prestacaoContaDTO);
+    }
 
 }

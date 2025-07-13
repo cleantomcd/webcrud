@@ -76,7 +76,7 @@
                 <p:ajax event="toggleSelect" update=":form:delete-products-button"/>
 
                 <p:column exportable="false" selectionMode="multiple"
-                          style="width:5%; text-align: center; vertical-align: middle;" />
+                          style="width:5%; text-align: center; vertical-align: middle;"/>
 
                 <p:column headerText="ID" sortBy="#{prestacaoConta.id}"
                           filterBy="#{prestacaoConta.id}">
@@ -144,7 +144,8 @@
                             <p:selectOneMenu id="categoria"
                                              value="#{prestacaoContaController.prestacaoSelecionada.categoria}"
                                              required="true" style="width: 100%;">
-                                <f:selectItem itemLabel="Selecione a categoria" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="Selecione a categoria" itemValue="#{null}"
+                                              noSelectionOption="true"/>
                                 <f:selectItems value="#{prestacaoContaController.categorias}"
                                                var="cat"
                                                itemValue="#{cat}"

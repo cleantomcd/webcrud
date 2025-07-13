@@ -1,10 +1,10 @@
 package webcrud.org.model.entity.dto;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 import webcrud.org.model.entity.Categoria;
 import webcrud.org.model.entity.PrestacaoConta;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public record PrestacaoContaDTO(Long id, String descricao, BigDecimal valor, LocalDate data, Categoria categoria) {
 
@@ -13,11 +13,11 @@ public record PrestacaoContaDTO(Long id, String descricao, BigDecimal valor, Loc
     }
 
     public PrestacaoContaDTO(Long id, String descricao, BigDecimal valor, LocalDate data, Categoria categoria) {
-    	this.id = id;
-    	this.descricao = descricao;
-    	this.valor = valor;
-    	this.data = data;
-    	this.categoria = categoria;
+        this.id = id;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.data = data;
+        this.categoria = categoria;
     }
 
 }

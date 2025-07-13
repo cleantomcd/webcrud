@@ -1,22 +1,22 @@
 package webcrud.org.model.entity.dao;
 
-import java.util.List;
-
 import webcrud.org.model.entity.PrestacaoConta;
 import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 
+import java.util.List;
+
 public interface PrestacaoContaDAO {
 
-	public List<PrestacaoConta> getAllPrestacaoConta();
+    List<PrestacaoConta> getAllPrestacaoConta();
 
-	public PrestacaoConta getById(Long id);
+    PrestacaoConta getById(Long id);
 
-	public boolean savePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO);
+    boolean savePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO);
 
-	public boolean deletePrestacaoConta(Long id);
+    boolean deletePrestacaoConta(Long id);
 
-	public void deletePrestacaoConta(List<PrestacaoConta> prestacoes);
+    void deletePrestacaoConta(List<PrestacaoConta> prestacoes);
 
-	public boolean updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO);
+    boolean updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO);
 
 }
