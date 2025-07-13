@@ -31,6 +31,8 @@ public class PrestacaoContaController implements Serializable {
 
     private List<PrestacaoConta> prestacoesSelecionadas;
 
+    private List<PrestacaoConta> prestacoesCadastradas;
+
     private boolean editing;
 
     public PrestacaoContaController() {
@@ -88,8 +90,12 @@ public class PrestacaoContaController implements Serializable {
         return "";
     }
 
+    public void loadPrestacoes() {
+        prestacoesCadastradas = prestacaoContaService.getAllPrestacaoConta();
+    }
+
     public List<PrestacaoConta> getPrestacoesCadastradas() {
-        return this.prestacaoContaService.getAllPrestacaoConta();
+        return prestacoesCadastradas;
     }
 
     public PrestacaoConta getPrestacaoSelecionada() {
@@ -123,16 +129,20 @@ public class PrestacaoContaController implements Serializable {
 
     public boolean savePrestacao() {
         PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
-        this.renderPage(this.editing ? "Prestação atualizada" : "Prestação cadastrada");
-        if (this.editing) {
-            this.editing = false;
-            return this.prestacaoContaService.updatePrestacaoConta(new PrestacaoContaDTO(prestacaoSelecionada));
+        boolean retorno;
+        if (this.editing){
+            retorno = this.prestacaoContaService.updatePrestacaoConta(new PrestacaoContaDTO(prestacaoSelecionada));
+            this.renderPage("Prestação atualizada");
         } else {
-            return this.prestacaoContaService.savePrestacaoConta(new PrestacaoContaDTO(prestacaoSelecionada));
+            retorno = this.prestacaoContaService.savePrestacaoConta(new PrestacaoContaDTO(prestacaoSelecionada));
+            this.renderPage("Prestação cadastrada");
         }
+        this.editing = false;
+        return retorno;
     }
 
     public void renderPage(String message) {
+        this.loadPrestacoes();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
