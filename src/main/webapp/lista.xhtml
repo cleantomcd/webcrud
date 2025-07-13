@@ -16,7 +16,6 @@
             <p:toolbar>
                 <p:toolbarGroup>
 
-                    <!-- Botão Cadastrar  o objeto prestacaoSelecionada está sendo criado-->
                     <p:commandButton value="Cadastrar" icon="pi pi-plus"
                                      actionListener="#{prestacaoContaController.criarPrestacao}"
                                      update=":dialogs:manage-product-content"
@@ -26,7 +25,6 @@
                     </p:commandButton>
 
 
-                    <!-- Botão Excluir -->
                     <p:commandButton id="delete-products-button"
                                      value="#{prestacaoContaController.mensagemBotaoDelete}"
                                      icon="pi pi-trash"
@@ -92,11 +90,10 @@
 
                 <p:column headerText="Data" sortBy="#{prestacaoContaDTO.data}"
                           filterBy="#{prestacaoContaDTO.data}">
-                    <h:outputText value="#{prestacaoContaDTO.data}"/>
+                    <h:outputText value="#{prestacaoContaController.formatData(prestacaoContaDTO.data)}"/>
                 </p:column>
 
                 <p:column exportable="false" ariaHeaderText="Actions">
-                    <!-- botao editar -->
                     <p:commandButton icon="pi pi-pencil"
                                      update=":dialogs:manage-product-content"
                                      oncomplete="PF('manageProductDialog').show()"
@@ -106,7 +103,6 @@
                                                      target="#{prestacaoContaController.DTOtoPrestacaoSelecionada}"/>
                         <p:resetInput target=":dialogs:manage-product-content"/>
                     </p:commandButton>
-                    <!-- botao excluir -->
                     <p:commandButton class="ui-button-warning rounded-button"
                                      icon="pi pi-trash" process="@this"
                                      style="background-color:  #ff6b6b; color: white;"
@@ -114,7 +110,6 @@
                         <f:setPropertyActionListener value="#{prestacaoContaDTO}"
                                                      target="#{prestacaoContaController.DTOtoPrestacaoSelecionada}"/>
                     </p:commandButton>
-                    <!-- botao detalhes -->
                     <p:commandButton icon="pi pi-eye" style="background-color: #87cefa"
                                      update=":dialogs:detalhes-content"
                                      oncomplete="PF('manageDetalhesDialog').show()"
@@ -130,7 +125,6 @@
 
         <h:form id="dialogs">
 
-            <!-- dialog ao clicar no botão 'Cadastrar' -->
             <p:dialog header="Cadastrar registro" showEffect="fade" modal="true"
                       widgetVar="manageProductDialog" responsive="true">
                 <p:outputPanel id="manage-product-content" class="ui-fluid">
@@ -178,7 +172,6 @@
                     </p:outputPanel>
                 </p:outputPanel>
 
-                <!-- Botões do footer do dialog do  -->
                 <f:facet name="footer">
                     <p:commandButton value="Cadastrar" icon="pi pi-check"
                                      style="background-color: #4CAF50; color: white;"
@@ -231,8 +224,7 @@
 
                     <h:outputLabel value="Data:"/>
                     <h:outputText
-                            value="#{prestacaoContaController.prestacaoSelecionada.data}">
-                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            value="#{prestacaoContaController.formatData()}">
                     </h:outputText>
 
                     <h:outputLabel value="Categoria:"/>
