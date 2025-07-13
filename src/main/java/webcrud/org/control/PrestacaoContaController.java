@@ -42,6 +42,7 @@ public class PrestacaoContaController implements Serializable {
     }
 
     public void criarPrestacao() {
+        this.editing = false;
         this.prestacaoSelecionada = new PrestacaoConta();
     }
 

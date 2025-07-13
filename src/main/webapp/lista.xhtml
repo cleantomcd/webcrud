@@ -18,7 +18,7 @@
 
                     <p:commandButton value="Cadastrar" icon="pi pi-plus"
                                      actionListener="#{prestacaoContaController.criarPrestacao}"
-                                     update=":dialogs:manage-product-content"
+                                     update=":dialogs:dialog-registro :dialogs:manage-product-content"
                                      oncomplete="PF('manageProductDialog').show()"
                                      styleClass="ui-button-success" style="margin-right: .5rem">
                         <p:resetInput target=":dialogs:manage-product-content"/>
@@ -89,7 +89,7 @@
                 </p:column>
 
                 <p:column headerText="Data" sortBy="#{prestacaoConta.data}"
-                          filterBy="#{prestacaoConta.data}">
+                          filterBy="#{prestacaoContaController.formatData(prestacaoConta.data)}">
                     <h:outputText
                             value="#{prestacaoContaController.formatData(prestacaoConta.data)}"/>
                 </p:column>
@@ -178,7 +178,7 @@
 
                 <f:facet name="footer">
                     <p:commandButton
-                            value="#{prestacaoContaController.editing ? 'Salvar alterações' : 'Cadastrar'}"
+                            value="Salvar"
                             icon="pi pi-check"
                             style="background-color: #4CAF50; color: white;"
                             actionListener="#{prestacaoContaController.savePrestacao}"
