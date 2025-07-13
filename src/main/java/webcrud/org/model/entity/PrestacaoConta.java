@@ -9,17 +9,14 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import webcrud.org.model.entity.dto.PrestacaoContaDTO;
-
-
-//@Entity
-//@Table(name = "PRESTACAO_CONTA")
+@Entity
+@Table(name = "prestacao_conta")
 public class PrestacaoConta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String descricao;

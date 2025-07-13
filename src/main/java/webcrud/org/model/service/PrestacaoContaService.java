@@ -26,10 +26,6 @@ public class PrestacaoContaService implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		prestacaoContaImpl.savePrestacaoConta(new PrestacaoContaDTO(10001L, "Aluguel escritório", new BigDecimal("200.00"), LocalDate.of(2025, 7, 1), Categoria.PRESTACAO_CONTAS_ANUAL));
-		prestacaoContaImpl.savePrestacaoConta(new PrestacaoContaDTO(10002L, "Compra de materiais", new BigDecimal("780.00"), LocalDate.of(2025, 6, 25), Categoria.PRESTACAO_CONTAS_COLABORADORES));
-		prestacaoContaImpl.savePrestacaoConta(new PrestacaoContaDTO(10003L, "Serviços terceirizados", new BigDecimal("1500.00"), LocalDate.of(2025, 6, 28), Categoria.PRESTACAO_CONTAS_PARTIDOS));
-		prestacaoContaImpl.savePrestacaoConta(new PrestacaoContaDTO(10004L, "Transporte", new BigDecimal("320.00"), LocalDate.of(2025, 7, 5), Categoria.PRESTACAO_CONTAS_PROJETOS));
     }
 
 	public List<PrestacaoConta> getAllPrestacaoConta() {

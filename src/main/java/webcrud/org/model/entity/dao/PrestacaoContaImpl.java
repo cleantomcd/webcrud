@@ -1,66 +1,62 @@
 package webcrud.org.model.entity.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import webcrud.org.model.entity.PrestacaoConta;
+import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-
-import webcrud.org.model.entity.PrestacaoConta;
-import webcrud.org.model.entity.dto.PrestacaoContaDTO;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Named
 @ApplicationScoped
 public class PrestacaoContaImpl implements PrestacaoContaDAO {
 
-    ArrayList<PrestacaoConta> prestacaoContas = new ArrayList<>();
+    @PersistenceContext(unitName = "webcrud")
+    private EntityManager em;
 
     @Override
     public List<PrestacaoConta> getAllPrestacaoConta() {
-        return prestacaoContas;
+        return em.createQuery("SELECT p FROM PrestacaoConta p", PrestacaoConta.class).getResultList();
     }
 
     @Override
     public PrestacaoConta getById(Long id) {
-        PrestacaoConta prestacaoConta = getPrestacaoConta(id);
+        PrestacaoConta prestacaoConta = em.find(PrestacaoConta.class, id);
         if (prestacaoConta == null) {
-            throw new NullPointerException("Não há prestação de contas com ess id");
+            throw new NullPointerException("Não há prestação de contas com esse id");
         }
         return prestacaoConta;
     }
 
     @Override
-    public boolean savePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
-        return prestacaoContas.add(new PrestacaoConta(prestacaoContaDTO));
+    public boolean savePrestacaoConta(PrestacaoContaDTO dto) {
+        PrestacaoConta pc = new PrestacaoConta(dto);
+        em.persist(pc);
+        return true;
     }
 
     @Override
     public boolean deletePrestacaoConta(Long id) {
-        PrestacaoConta prestacaoConta = getPrestacaoConta(id);
-        return prestacaoConta != null && prestacaoContas.remove(prestacaoConta);
+        PrestacaoConta prestacao = em.find(PrestacaoConta.class, id);
+        if (prestacao != null) {
+            em.remove(prestacao);
+            return true;
+        }
+        return false;
     }
-
-    public void deletePrestacaoConta(List<PrestacaoConta> prestacoes) {
-        Set<Long> idsParaRemover = prestacoes.stream()
-                .map(PrestacaoConta::getId)
-                .collect(Collectors.toSet());
-
-        this.prestacaoContas = (ArrayList<PrestacaoConta>) this.prestacaoContas.stream()
-                .filter(pc -> !idsParaRemover.contains(pc.getId()))
-                .collect(Collectors.toList());
-    }
-
 
     @Override
-    public boolean updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
-        deletePrestacaoConta(prestacaoContaDTO.id());
-        return savePrestacaoConta(prestacaoContaDTO);
+    public boolean updatePrestacaoConta(PrestacaoContaDTO dto) {
+        deletePrestacaoConta(dto.id());
+        return savePrestacaoConta(dto);
     }
 
-    private PrestacaoConta getPrestacaoConta(Long id) {
-        return prestacaoContas.stream().filter(prestacao -> prestacao.getId().equals(id)).findFirst().orElse(null);
+    @Override
+    public void deletePrestacaoConta(List<PrestacaoConta> prestacoes) {
+        for (PrestacaoConta pc : prestacoes) {
+            deletePrestacaoConta(pc.getId());
+        }
     }
-
 }
