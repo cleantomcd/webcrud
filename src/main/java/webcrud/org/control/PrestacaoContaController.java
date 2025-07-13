@@ -30,6 +30,8 @@ public class PrestacaoContaController implements Serializable {
 
     private List<PrestacaoConta> prestacoesSelecionadas;
 
+    private boolean editing;
+
     public PrestacaoContaController() {
 
     }
@@ -53,6 +55,14 @@ public class PrestacaoContaController implements Serializable {
 
     public boolean possuiPrestacoesSelecionadas() {
         return prestacoesSelecionadas != null && !prestacoesSelecionadas.isEmpty();
+    }
+
+    public boolean isEditing() {
+        return this.editing;
+    }
+
+    public void setEditing() {
+        this.editing = true;
     }
 
     public String formatData(LocalDate data) {
@@ -102,10 +112,16 @@ public class PrestacaoContaController implements Serializable {
         this.renderPage("Registro excluído");
     }
 
-    public boolean cadastrarPrestacao() {
+    public boolean savePrestacao() {
         PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
-        this.renderPage("Prestação cadastrada");
-        return this.prestacaoContaService.savePrestacaoConta(new PrestacaoContaDTO(prestacaoSelecionada));
+        this.renderPage(this.editing ? "Prestação atualizada" : "Prestação cadastrada");
+        if (this.editing) {
+            this.editing = false;
+            return this.prestacaoContaService.updatePrestacaoConta(new PrestacaoContaDTO(prestacaoSelecionada));
+        } else {
+            return this.prestacaoContaService.savePrestacaoConta(new PrestacaoContaDTO(prestacaoSelecionada));
+        }
+
     }
 
     public void renderPage(String message) {

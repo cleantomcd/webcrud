@@ -2,6 +2,7 @@ package webcrud.org.model.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import webcrud.org.model.entity.dto.PrestacaoContaDTO;
 
@@ -66,6 +67,19 @@ public class PrestacaoConta implements Serializable {
 	}
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		PrestacaoConta other = (PrestacaoConta) obj;
+		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
 }

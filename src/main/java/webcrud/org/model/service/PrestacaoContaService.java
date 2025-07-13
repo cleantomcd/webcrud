@@ -50,8 +50,8 @@ public class PrestacaoContaService implements Serializable {
 		prestacaoContaImpl.deletePrestacaoConta(prestacoes);
 	}
 
-	public void updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
-		prestacaoContaImpl.updatePrestacaoConta(prestacaoContaDTO);
+	public boolean updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
+		return prestacaoContaImpl.updatePrestacaoConta(prestacaoContaDTO);
 	}
 
 }

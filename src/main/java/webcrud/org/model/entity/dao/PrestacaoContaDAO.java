@@ -17,6 +17,6 @@ public interface PrestacaoContaDAO {
 
 	public void deletePrestacaoConta(List<PrestacaoConta> prestacoes);
 
-	public void updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO);
+	public boolean updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO);
 
 }

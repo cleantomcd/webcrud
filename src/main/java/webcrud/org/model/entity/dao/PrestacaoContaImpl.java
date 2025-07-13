@@ -54,9 +54,9 @@ public class PrestacaoContaImpl implements PrestacaoContaDAO {
 
 
     @Override
-    public void updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
+    public boolean updatePrestacaoConta(PrestacaoContaDTO prestacaoContaDTO) {
         deletePrestacaoConta(prestacaoContaDTO.id());
-        savePrestacaoConta(prestacaoContaDTO);
+        return savePrestacaoConta(prestacaoContaDTO);
     }
 
     private PrestacaoConta getPrestacaoConta(Long id) {
