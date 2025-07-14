@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta charset="UTF-8"/>
+    <title>Listagem de registros</title>
+</h:head>
+<h:body>
+    <div class="card crud-demo">
+
+        <h:form id="form">
+            <p:growl id="messages" showDetail="true"/>
+
+            <p:toolbar>
+                <p:toolbarGroup>
+
+                    <p:commandButton value="Cadastrar" icon="pi pi-plus"
+                                     actionListener="#{prestacaoContaController.criarPrestacao}"
+                                     update=":dialogs:dialog-registro :dialogs:manage-product-content"
+                                     oncomplete="PF('manageProductDialog').show()"
+                                     styleClass="ui-button-success" style="margin-right: .5rem">
+                        <p:resetInput target=":dialogs:manage-product-content"/>
+                    </p:commandButton>
+
+
+                    <p:commandButton id="delete-products-button"
+                                     value="#{prestacaoContaController.mensagemBotaoDelete}"
+                                     icon="pi pi-trash"
+                                     actionListener="#{prestacaoContaController.deletePrestacoesSelecionadas}"
+                                     styleClass="ui-button-danger"
+                                     disabled="#{!prestacaoContaController.possuiPrestacoesSelecionadas()}"
+                                     update="@this">
+                        <p:confirm header="Confirmação"
+                                   message="Excluir os registros selecionados?"
+                                   icon="pi pi-exclamation-triangle"/>
+                    </p:commandButton>
+
+                    <p:confirmDialog global="true" showEffect="fade" width="300">
+                        <p:commandButton value="Sim" type="button"
+                                         styleClass="ui-confirmdialog-yes" icon="pi pi-check"
+                                         update=":form:delete-products-button"/>
+                        <p:commandButton value="Não" type="button"
+                                         styleClass="ui-confirmdialog-no ui-button-secondary"
+                                         icon="pi pi-times"/>
+                    </p:confirmDialog>
+
+
+                </p:toolbarGroup>
+            </p:toolbar>
+
+
+            <!-- Tabela com as Prestações Cadastradas -->
+            <!-- aparentemente, toda referência a prestacaoConta está sendo mapeada pra essa var-->
+            <p:dataTable id="dt-products" widgetVar="dtProducts"
+                         var="prestacaoConta"
+                         value="#{prestacaoContaController.prestacoesCadastradas}"
+                         reflow="true" styleClass="products-table" selectionMode="multiple"
+                         selection="#{prestacaoContaController.prestacoesSelecionadas}"
+                         rowKey="#{prestacaoConta.id}" paginator="true" rows="10"
+                         selectionRowMode="add" paginatorPosition="bottom">
+                <f:facet name="header">
+                    <div class="products-table-header"
+                         style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: bold">PRESTAÇÕES</span>
+                    </div>
+                </f:facet>
+
+                <p:ajax event="rowSelect" update=":form:delete-products-button"/>
+                <p:ajax event="rowUnselect" update=":form:delete-products-button"/>
+                <p:ajax event="rowSelectCheckbox"
+                        update=":form:delete-products-button"/>
+                <p:ajax event="rowUnselectCheckbox"
+                        update=":form:delete-products-button"/>
+                <p:ajax event="toggleSelect" update=":form:delete-products-button"/>
+
+                <p:column exportable="false" selectionMode="multiple"
+                          style="width:5%; text-align: center; vertical-align: middle;"/>
+
+                <p:column headerText="ID" sortBy="#{prestacaoConta.id}"
+                          filterBy="#{prestacaoConta.id}">
+                    <h:outputText value="#{prestacaoConta.id}"/>
+                </p:column>
+                <p:column headerText="Categoria"
+                          sortBy="#{prestacaoConta.categoria.label}"
+                          filterBy="#{prestacaoConta.categoria.label}">
+                    <h:outputText value="#{prestacaoConta.categoria.label}"/>
+                </p:column>
+
+                <p:column headerText="Data" sortBy="#{prestacaoConta.data}"
+                          filterBy="#{prestacaoContaController.formatData(prestacaoConta.data)}">
+                    <h:outputText
+                            value="#{prestacaoContaController.formatData(prestacaoConta.data)}"/>
+                </p:column>
+
+                <p:column exportable="false" ariaHeaderText="Actions">
+                    <p:commandButton icon="pi pi-pencil"
+                                     update=":dialogs:dialog-registro :dialogs:manage-product-content"
+                                     oncomplete="PF('manageProductDialog').show()"
+                                     styleClass="edit-button rounded-button ui-button-success"
+                                     process="@this"
+                                     actionListener="#{prestacaoContaController.setEditing}">
+                        <f:setPropertyActionListener value="#{prestacaoConta}"
+                                                     target="#{prestacaoContaController.prestacaoSelecionada}"/>
+                        <p:resetInput target=":dialogs:manage-product-content"/>
+                    </p:commandButton>
+                    <p:commandButton class="ui-button-warning rounded-button"
+                                     icon="pi pi-trash" process="@this"
+                                     style="background-color:  #ff6b6b; color: white;"
+                                     oncomplete="PF('deleteProductDialog').show()">
+                        <f:setPropertyActionListener value="#{prestacaoConta}"
+                                                     target="#{prestacaoContaController.prestacaoSelecionada}"/>
+                    </p:commandButton>
+                    <p:commandButton icon="pi pi-eye" style="background-color: #87cefa"
+                                     update=":dialogs:detalhes-content"
+                                     oncomplete="PF('manageDetalhesDialog').show()"
+                                     styleClass="rounded-button ui-button-info" process="@this">
+                        <f:setPropertyActionListener value="#{prestacaoConta}"
+                                                     target="#{prestacaoContaController.prestacaoSelecionada}"/>
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+        <h:form id="dialogs">
+
+            <p:dialog id="dialog-registro"
+                      header="#{prestacaoContaController.editing ? 'Editar Registro' : 'Cadastrar Registro'}"
+                      showEffect="fade" modal="true" widgetVar="manageProductDialog"
+                      responsive="true">
+                <p:outputPanel id="manage-product-content" class="ui-fluid">
+                    <p:outputPanel rendered="true">
+
+                        <div class="field">
+                            <p:outputLabel for="descricao">Descrição</p:outputLabel>
+                            <p:inputTextarea id="descricao"
+                                             value="#{prestacaoContaController.prestacaoSelecionada.descricao}"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="categoria">Categoria</p:outputLabel>
+                            <p:selectOneMenu id="categoria"
+                                             value="#{prestacaoContaController.prestacaoSelecionada.categoria}"
+                                             required="true" style="width: 100%;">
+                                <f:selectItems value="#{prestacaoContaController.categorias}"
+                                               var="cat"
+                                               itemValue="#{cat}"
+                                               itemLabel="#{cat.label}"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="formgrid grid">
+                            <div class="field col">
+                                <p:outputLabel for="valor">Valor</p:outputLabel>
+                                <p:inputNumber id="valor"
+                                               value="#{prestacaoContaController.prestacaoSelecionada.valor}"
+                                               required="true" symbol="R$ " symbolPosition="p"
+                                               decimalSeparator="," thousandSeparator="."/>
+                            </div>
+                            <div class="field col">
+                                <p:outputLabel for="data" value="Data"/>
+                                <p:datePicker id="data"
+                                              value="#{prestacaoContaController.prestacaoSelecionada.data}"
+                                              pattern="dd/MM/yyyy" showIcon="true" placeholder="dd/mm/aaaa"
+                                              required="true"/>
+                            </div>
+
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton
+                            value="Salvar"
+                            icon="pi pi-check"
+                            style="background-color: #4CAF50; color: white;"
+                            actionListener="#{prestacaoContaController.savePrestacao}"
+                            update="manage-product-content"
+                            process="manage-product-content @this"/>
+                    <p:commandButton value="Cancelar" icon="pi pi-times"
+                                     onclick="PF('manageProductDialog').hide()"
+                                     style="background-color:  #ff6b6b; color: white;"
+                                     class="ui-button-secondary" type="button"/>
+                </f:facet>
+            </p:dialog>
+
+            <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade"
+                             width="300" message="Deseja excluir essa prestação?"
+                             header="Confirmação" severity="warn">
+                <p:commandButton value="Sim" icon="pi pi-check"
+                                 style="background-color:  #ff6b6b; color: white;"
+                                 actionListener="#{prestacaoContaController.deletePrestacaoSelecionada}"
+                                 process="@this" update=":form:delete-products-button"
+                                 oncomplete="PF('deleteProductDialog').hide()"/>
+                <p:commandButton value="Não" type="button"
+                                 style="background-color: #9e9e9e; color: white;"
+                                 styleClass="ui-button-secondary" icon="pi pi-times"
+                                 onclick="PF('deleteProductDialog').hide()"/>
+            </p:confirmDialog>
+
+            <p:dialog header="Detalhes da Prestação de Contas"
+                      widgetVar="manageDetalhesDialog" modal="true" showEffect="fade"
+                      hideEffect="fade" resizable="false" draggable="false"
+                      id="manage-dialog">
+
+                <h:panelGrid id="detalhes-content" columns="2" cellpadding="5">
+
+                    <h:outputLabel value="Descrição:"/>
+                    <h:outputText
+                            value="#{prestacaoContaController.prestacaoSelecionada.descricao}"/>
+
+                    <h:outputLabel value="Valor:"/>
+                    <h:outputText
+                            value="#{prestacaoContaController.prestacaoSelecionada.valor}"/>
+
+                    <h:outputLabel value="Data:"/>
+                    <h:outputText value="#{prestacaoContaController.formatData()}">
+                    </h:outputText>
+
+                    <h:outputLabel value="Categoria:"/>
+                    <h:outputText
+                            value="#{prestacaoContaController.prestacaoSelecionada.categoria.label}"/>
+
+                </h:panelGrid>
+            </p:dialog>
+
+        </h:form>
+    </div>
+</h:body>
+</html>
