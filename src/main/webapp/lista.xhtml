@@ -144,8 +144,6 @@
                             <p:selectOneMenu id="categoria"
                                              value="#{prestacaoContaController.prestacaoSelecionada.categoria}"
                                              required="true" style="width: 100%;">
-                                <f:selectItem itemLabel="Selecione a categoria" itemValue="#{null}"
-                                              noSelectionOption="true"/>
                                 <f:selectItems value="#{prestacaoContaController.categorias}"
                                                var="cat"
                                                itemValue="#{cat}"
